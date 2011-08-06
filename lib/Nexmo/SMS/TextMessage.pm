@@ -1,4 +1,4 @@
-package Nexmo::SMS::Message;
+package Nexmo::SMS::TextMessage;
 
 use strict;
 use warnings;
@@ -36,6 +36,9 @@ sub send {
         {
             username => $self->username,
             password => $self->password,
+            from
+            to
+            text
         }
     );
 }

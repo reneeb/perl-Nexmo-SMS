@@ -3,6 +3,8 @@ package Nexmo::SMS;
 use warnings;
 use strict;
 
+use Nexmo::SMS::Message;
+
 =head1 NAME
 
 Nexmo::SMS - The great new Nexmo::SMS!
@@ -51,6 +53,20 @@ sub new {
 =cut
 
 sub sms {
+    my ($self,%param) = @_;
+    
+    my %types = (
+        text   => 'Nexmo::SMS::TextMessage',
+        binary => 'Nexmo::SMS::BinaryMessage',
+    );
+    
+    my $type = $param{type} ||
+    
+    # check for needed params
+    
+    # create new message
+    
+    # return message 
 }
 
 sub get_balance {
