@@ -3,11 +3,11 @@ package Nexmo::SMS;
 use warnings;
 use strict;
 
-use Nexmo::SMS::Message;
+use Nexmo::SMS::TextMessage;
 
 =head1 NAME
 
-Nexmo::SMS - The great new Nexmo::SMS!
+Nexmo::SMS - Module for the Nexmo SMS API!
 
 =head1 VERSION
 
@@ -20,35 +20,63 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+This module simplifies sending SMS through the Nexmo API.
 
-Perhaps a little code snippet.
 
     use Nexmo::SMS;
 
-    my $foo = Nexmo::SMS->new();
-    ...
+    my $foo = Nexmo::SMS->new(
+        server   => 'http://test.nexmo.com/sms/json',
+        username => 'testuser1',
+        password => 'testpasswd2',
+    );
+    
+    my $sms = $nexmo->sms(
+        text     => 'This is a test',
+        from     => 'Test02',
+        to       => '452312432',
+    ) or die $nexmo->errstr;
+    
+    my $response = $sms->send || die $sms->errstr;
+    
+    if ( $response->is_success ) {
+        print "SMS was sent...\n";
+    }
 
-=head1 EXPORT
+=head1 METHODS
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 FUNCTIONS
-
-=head2 function1
+=head2 new
 
 =cut
+
+my @attrs = qw(server username password);;
+
+for my $attr ( @attrs ) {
+    no strict 'refs';
+    *{ __PACKAGE__ . '::' . $attr } = sub {
+        my ($self,$value) = @_;
+        
+        my $key = '__' . $attr . '__';
+        $self->{$key} = $value if @_ == 2;
+        return $self->{$key};
+    };
+}
 
 sub new {
     my ($class,%param) = @_;
     
-    for my $attr ( keys %param ) {
-        
+    my $self = bless {}, $class;
+    
+    for my $attr ( @attrs ) {
+        if ( exists $param{$attr} ) {
+            $self->$attr( $param{$attr} );
+        }
     }
+    
+    return $self;
 }
 
-=head2 function2
+=head2 sms
 
 =cut
 
@@ -57,22 +85,70 @@ sub sms {
     
     my %types = (
         text   => 'Nexmo::SMS::TextMessage',
-        binary => 'Nexmo::SMS::BinaryMessage',
+        #binary => 'Nexmo::SMS::BinaryMessage',
     );
     
-    my $type = $param{type} ||
+    my $requested_type = $param{type};
+    if ( exists $param{type} and !$types{$requested_type} ) {
+        $self->errstr("Type $requested_type not supported (yet)!");
+        return;
+    }
+        
+    my $type   = $requested_type || 'text';
+    my $module = $types{$type};
     
     # check for needed params
+    my $sub_name  = 'check_needed_params';
+    my $check_sub = $module->can( $sub_name );
+    if ( !$check_sub ) {
+        $self->errstr("$module does not know about sub $sub_name");
+        return;
+    }
+    
+    $param{server}   ||= $self->server;
+    $param{username} ||= $self->username;
+    $param{password} ||= $self->password;
+    
+    my $params_not_ok = $module->$sub_name( %param );
+    if ( $params_not_ok ) {
+        $self->errstr("Check params $params_not_ok");
+        return;
+    }
     
     # create new message
+    my $message = $module->new( %param );
     
     # return message 
+    return $message;
 }
+
+sub errstr {
+    my ($self,$message) = @_;
+    
+    $self->{__errstr__} = $message if @_ == 2;
+    return $self->{__errstr__};
+}
+
+=head2 get_balance
+
+Not implemented yet...
+
+=cut
 
 sub get_balance {
+    warn "not implemented yet\n";
+    return;
 }
 
+=head2 get_pricing
+
+Not implemented yet...
+
+=cut
+
 sub get_pricing {
+    warn "not implemented yet\n";
+    return;
 }
 
 =head1 AUTHOR
