@@ -25,7 +25,7 @@ This module simplifies sending SMS through the Nexmo API.
 
     use Nexmo::SMS;
 
-    my $foo = Nexmo::SMS->new(
+    my $nexmo = Nexmo::SMS->new(
         server   => 'http://test.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
@@ -46,6 +46,16 @@ This module simplifies sending SMS through the Nexmo API.
 =head1 METHODS
 
 =head2 new
+
+create a new object
+
+    my $foo = Nexmo::SMS->new(
+        server   => 'http://test.nexmo.com/sms/json',
+        username => 'testuser1',
+        password => 'testpasswd2',
+    );
+
+Those parameters are optional and they are used as defaults for the message objects
 
 =cut
 
@@ -77,6 +87,14 @@ sub new {
 }
 
 =head2 sms
+
+Create a new message object or returns C<undef>.
+
+    my $sms = $nexmo->sms(
+        text     => 'This is a test',
+        from     => 'Test02',
+        to       => '452312432',
+    ) or die $nexmo->errstr;
 
 =cut
 
@@ -122,6 +140,14 @@ sub sms {
     return $message;
 }
 
+=head2 errstr
+
+return the "last" error as string.
+
+    print $nexmo->errstr;
+
+=cut
+
 sub errstr {
     my ($self,$message) = @_;
     
@@ -150,6 +176,24 @@ sub get_pricing {
     warn "not implemented yet\n";
     return;
 }
+
+=head1 Attributes
+
+These attributes are available for C<Nexmo::SMS::TextMessage> objects. For each
+attribute there is a getter/setter:
+
+  $nexmo->server( 'servername' );
+  my $server = $nexmo->server;
+
+=over 4
+
+=item * password
+
+=item * server
+
+=item * username
+
+=back
 
 =head1 AUTHOR
 

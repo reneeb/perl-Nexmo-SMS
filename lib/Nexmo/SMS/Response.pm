@@ -7,6 +7,16 @@ use Nexmo::SMS::Response::Message;
 
 use JSON::PP;
 
+=head1 NAME
+
+Nexmo::SMS::Response - Module that represents a response from Nexmo SMS API!
+
+=head1 VERSION
+
+Version 0.01
+
+=cut
+
 our $VERSION = '0.01';
 
 # create getter/setter
@@ -23,6 +33,56 @@ for my $attr ( @attrs ) {
     };
 }
 
+=head1 SYNOPSIS
+
+This module represents a response from Nexmo.
+
+
+    use Nexmo::SMS::Response;
+
+    my $nexmo = Nexmo::SMS::Response->new(
+        json => '{
+            "message-count":"1",
+            "messages":[
+              {
+              "status":"4",
+              "message-id":"message001",
+              "client-ref":"Test001 - Reference",
+              "remaining-balance":"20.0",
+              "message-price":"0.05",
+              "error-text":""
+              }
+            ]
+        }',
+    );
+    
+    for my $message ( $response ) {
+        print $message->status;
+    }
+
+=head1 METHODS
+
+=head2 new
+
+create a new object
+
+    my $foo = Nexmo::SMS::Response->new(
+        json => '{
+            "message-count":"1",
+            "messages":[
+              {
+              "status":"4",
+              "message-id":"message001",
+              "client-ref":"Test001 - Reference",
+              "remaining-balance":"20.0",
+              "message-price":"0.05",
+              "error-text":""
+              }
+            ]
+        }',
+    );
+
+=cut
 
 sub new {
     my ($class,%param) = @_;
@@ -48,6 +108,15 @@ sub new {
     return $self;
 }
 
+=head2 messages
+
+returns the list of messages included in the response. Each element is an
+object of L<Nexmo::SMS::Response::Message>.
+
+    my @messages = $response->messages;
+
+=cut
+
 sub messages {
     my ($self) = @_;
     
@@ -66,6 +135,15 @@ sub _add_message {
     }
 }
 
+=head2 errstr
+
+return the "last" error as string.
+
+    print $response->errstr;
+
+=cut
+
+
 sub errstr {
     my ($self,$message) = @_;
     
@@ -73,10 +151,22 @@ sub errstr {
     return $self->{__errstr__};
 }
 
+=head2 is_success
+
+returns 1 if all messages have a status = 0, C<undef> otherwise.
+
+=cut
+
 sub is_success {
     my ($self) = @_;
     return !$self->status;
 }
+
+=head2 is_error
+
+Returns 1 if an error occured, 0 otherwise...
+
+=cut
 
 sub is_error {
     my ($self) = @_;
@@ -84,3 +174,32 @@ sub is_error {
 }
 
 1;
+
+=head1 ATTRIBUTES
+
+These attributes are available for C<Nexmo::SMS::TextMessage> objects:
+
+  $nexmo->status( 'status' );
+  my $status = $nexmo->status;
+
+=over 4
+
+=item * json
+
+=item * message_count
+
+=item * status
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
+
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2011 Renee Baecker.
+
+This program is released under the following license: artistic_2
+
+
+=cut

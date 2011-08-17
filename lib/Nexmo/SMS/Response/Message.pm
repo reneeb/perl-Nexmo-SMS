@@ -3,6 +3,16 @@ package Nexmo::SMS::Response::Message;
 use strict;
 use warnings;
 
+=head1 NAME
+
+Nexmo::SMS::Message - Module that represents a single message in the response from Nexmo SMS API!
+
+=head1 VERSION
+
+Version 0.01
+
+=cut
+
 our $VERSION = '0.01';
 
 # create getter/setter
@@ -38,14 +48,54 @@ my %status_map = (
     12 => [ 'Message too long',	'Applies to Binary submissions, where the length of the UDF and the message body combined exceed 140 octets' ],
 );
 
+=head1 SYNOPSIS
+
+This module represents a single message in a response from Nexmo.
+
+
+    use Nexmo::SMS::Response::Message;
+
+    my $nexmo = Nexmo::SMS::Response::Message->new(
+        json => '{
+              "status":"4",
+              "message-id":"message001",
+              "client-ref":"Test001 - Reference",
+              "remaining-balance":"20.0",
+              "message-price":"0.05",
+              "error-text":""
+              }',
+    );
+    
+    print $nexmo->message_price;
+
+=head1 METHODS
+
+=head2 new
+
+create a new object
+
+    my $foo = Nexmo::SMS::Response::Message->new(
+        json => '
+              {
+              "status":"4",
+              "message-id":"message001",
+              "client-ref":"Test001 - Reference",
+              "remaining-balance":"20.0",
+              "message-price":"0.05",
+              "error-text":""
+              }',
+    );
+
+=cut
+
 sub new {
     my ($class,%param) = @_;
     
     my $self = bless {}, $class;
     
     for my $attr ( @attrs ) {
-        (my $method_name = $attr) =~ tr/-/_/;
-        $self->$method_name( $param{$attr} );
+        (my $key = $attr) =~ tr/_/-/;
+        $self->$attr( $param{$key} );
     }
     
     my $status = $param{status};
@@ -60,3 +110,40 @@ sub new {
 }
 
 1;
+
+=head1 ATTRIBUTES
+
+These attributes are available for C<Nexmo::SMS::TextMessage> objects:
+
+  $nexmo->client_ref( 'client_ref' );
+  my $client_ref = $nexmo->client_ref;
+
+=over 4
+
+=item * client_ref
+
+=item * error_text
+
+=item * message_price
+
+=item * remaining_balance
+
+=item * status_desc
+
+=item * status message_id
+
+=item * status_text
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
+
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2011 Renee Baecker.
+
+This program is released under the following license: artistic_2
+
+
+=cut

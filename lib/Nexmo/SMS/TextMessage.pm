@@ -4,10 +4,19 @@ use strict;
 use warnings;
 
 use Nexmo::SMS::Response;
-use Nexmo::SMS::UserAgent;
 
 use LWP::UserAgent;
 use JSON::PP;
+
+=head1 NAME
+
+Nexmo::SMS::TextMessage - Module that respresents a text message for the Nexmo SMS API!
+
+=head1 VERSION
+
+Version 0.01
+
+=cut
 
 our $VERSION = '0.01';
 
@@ -34,6 +43,54 @@ for my $attr ( keys %attrs ) {
     };
 }
 
+=head1 SYNOPSIS
+
+This module simplifies sending SMS through the Nexmo API.
+
+
+    use Nexmo::SMS::TextMessage;
+
+    my $nexmo = Nexmo::SMS::TextMessage->new(
+        server   => 'http://test.nexmo.com/sms/json',
+        username => 'testuser1',
+        password => 'testpasswd2',
+        text     => 'This is a test',
+        from     => 'Test02',
+        to       => '452312432',
+    );
+        
+    my $response = $sms->send || die $sms->errstr;
+    
+    if ( $response->is_success ) {
+        print "SMS was sent...\n";
+    }
+
+=head1 METHODS
+
+=head2 new
+
+create a new object
+
+    my $message = Nexmo::SMS::TextMessage->new(
+        server   => 'http://test.nexmo.com/sms/json',
+        username => 'testuser1',
+        password => 'testpasswd2',
+    );
+
+This method recognises these parameters:
+
+    text              => 'required',
+    from              => 'required',
+    to                => 'required',
+    server            => 'required',
+    username          => 'required',
+    password          => 'required',
+    status_report_req => 'optional',
+    client_ref        => 'optional',
+    network_code      => 'optional',
+
+=cut
+
 sub new {
     my ($class,%param) = @_;
     
@@ -54,6 +111,17 @@ sub new {
     return $self;
 }
 
+=head2 user_agent
+
+Getter/setter for the user_agent attribute of the object. By default a new
+object of LWP::UserAgent is used, but you can use your own class as long as it
+is compatible to LWP::UserAgent.
+
+  $sms->user_agent( MyUserAgent->new );
+  my $ua = $sms->user_agent;
+
+=cut
+
 sub user_agent {
     my ($self,$ua) = @_;
     
@@ -61,12 +129,30 @@ sub user_agent {
     return $self->{__ua__};
 }
 
+=head2 errstr
+
+return the "last" error as string.
+
+    print $sms->errstr;
+
+=cut
+
 sub errstr {
     my ($self,$message) = @_;
     
     $self->{__errstr__} = $message if @_ == 2;
     return $self->{__errstr__};
 }
+
+=head2 send
+
+This actually calls the Nexmo SMS API. It returns a L<Nexmo::SMS::Response> object or
+C<undef> (on failure).
+
+   my $sms = Nexmo::SMS::TextMessage->new( ... );
+   $sms->send or die $sms->errstr;
+
+=cut
 
 sub send {
     my ($self) = shift;
@@ -97,8 +183,23 @@ sub send {
     my $json            = $response->content;
     my $response_object = Nexmo::SMS::Response->new( json => $json );
     
+    if ( $response_object->is_error ) {
+        $self->errstr( $response_object->errstr );
+    }
+    
     return $response_object;
 }
+
+=head2 check_needed_params
+
+This method checks if all needed parameters are passed.
+
+  my $params_not_ok = Nexmo::SMS::TextMessage->check_needed_params( ... );
+  if ( $params_not_ok ) {
+      print "Please check $params_not_ok";
+  }
+
+=cut
 
 sub check_needed_params {
     my ($class,%params) = @_;
@@ -114,4 +215,44 @@ sub check_needed_params {
     return join ", ", @params_not_ok;
 }
 
+=head1 Attributes
+
+These attributes are available for C<Nexmo::SMS::TextMessage> objects:
+
+=over 4
+
+=item * client_ref
+
+=item * from
+
+=item * network_code
+
+=item * password
+
+=item * server
+
+=item * status_report_req
+
+=item * text
+
+=item * to
+
+=item * username
+
+=back
+
+=cut
+
 1;
+
+=head1 ACKNOWLEDGEMENTS
+
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2011 Renee Baecker.
+
+This program is released under the following license: artistic_2
+
+
+=cut
