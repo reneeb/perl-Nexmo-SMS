@@ -1,5 +1,9 @@
 Revision history for Nexmo-SMS
 
+0.02    Aug 28, 2011 - "London"
+        + Support WAPPush and Binary messages
+        + more tests
+
 0.01    Aug 17, 2011 - "Riga"
         First version, released on an unsuspecting world.
 
