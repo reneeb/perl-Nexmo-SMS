@@ -5,6 +5,7 @@ use strict;
 
 use Nexmo::SMS::BinaryMessage;
 use Nexmo::SMS::TextMessage;
+use Nexmo::SMS::WAPPushMessage;
 
 =head1 NAME
 
@@ -105,16 +106,16 @@ Send a binary message
         body     => '0011223344556677', # hex encoded body
         from     => 'Test02',
         to       => '452312432',
-    ) or die $nexmo->errstr;
-    );
+    ) or die $nexmo->errstr;
 =cut
 
 sub sms {
     my ($self,%param) = @_;
     
     my %types = (
-        text   => 'Nexmo::SMS::TextMessage',
-        binary => 'Nexmo::SMS::BinaryMessage',
+        text    => 'Nexmo::SMS::TextMessage',
+        binary  => 'Nexmo::SMS::BinaryMessage',
+        wappush => 'Nexmo::SMS::WAPPushMessage',
     );
     
     my $requested_type = $param{type};
