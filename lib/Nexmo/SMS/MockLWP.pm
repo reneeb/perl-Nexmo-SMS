@@ -85,6 +85,19 @@ __DATA__
               "error-text":""
               }
             ]
+        },
+        "Test04" : {
+            "message-count":"1",
+            "messages":[
+              {
+              "status":"0",
+              "message-id":"message004",
+              "client-ref":"Test004 - Reference",
+              "remaining-balance":"20.0",
+              "message-price":"0.05",
+              "error-text":""
+              }
+            ]
         }
     },
     "http://test.nexmo.com/sms/json" : {

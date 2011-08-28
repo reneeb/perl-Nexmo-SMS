@@ -3,6 +3,7 @@ package Nexmo::SMS;
 use warnings;
 use strict;
 
+use Nexmo::SMS::BinaryMessage;
 use Nexmo::SMS::TextMessage;
 
 =head1 NAME
@@ -11,11 +12,11 @@ Nexmo::SMS - Module for the Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
@@ -96,6 +97,16 @@ Create a new message object or returns C<undef>.
         to       => '452312432',
     ) or die $nexmo->errstr;
 
+Send a binary message
+
+    my $binary = $nexmo->sms(
+        type     => 'binary',
+        udh      => '06050415811581',   # hex encoded udh
+        body     => '0011223344556677', # hex encoded body
+        from     => 'Test02',
+        to       => '452312432',
+    ) or die $nexmo->errstr;
+    );
 =cut
 
 sub sms {
@@ -103,7 +114,7 @@ sub sms {
     
     my %types = (
         text   => 'Nexmo::SMS::TextMessage',
-        #binary => 'Nexmo::SMS::BinaryMessage',
+        binary => 'Nexmo::SMS::BinaryMessage',
     );
     
     my $requested_type = $param{type};
