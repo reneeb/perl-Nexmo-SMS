@@ -34,6 +34,34 @@ our $VERSION = 0.01;
     my $perl  = $coder->decode( $json );
     my $from  = $params->{from};
     
+    if ( $url =~ /get-balance/ ) {
+        $from = 'get-balance';
+        $url  = 'get-balance';
+    }
+    
+    my $subhash   = $perl->{$url}->{$from};
+    my $response  = $coder->encode( $subhash );
+    
+    my $http_response = HTTP::Response->new( 200 );
+    $http_response->content( $response );
+    
+    return $http_response;
+};
+
+*LWP::UserAgent::get = sub {
+    my ($object,$url,$params) = @_;
+    
+    my $json = do{ undef $/; <DATA> };
+    
+    my $coder = JSON::PP->new->ascii->pretty->allow_nonref;
+    my $perl  = $coder->decode( $json );
+    my $from  = $params->{from};
+    
+    if ( $url =~ /get-balance/ ) {
+        $from = 'get-balance';
+        $url  = 'get-balance';
+    }
+    
     my $subhash   = $perl->{$url}->{$from};
     my $response  = $coder->encode( $subhash );
     
@@ -134,6 +162,11 @@ __DATA__
               "error-text":""
               }
             ]
+        }
+    },
+    "get-balance" : {
+        "get-balance" : {
+            "value" : 4.15
         }
     }
 }
