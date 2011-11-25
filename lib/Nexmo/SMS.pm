@@ -6,6 +6,7 @@ use strict;
 use Nexmo::SMS::BinaryMessage;
 use Nexmo::SMS::TextMessage;
 use Nexmo::SMS::WAPPushMessage;
+use Nexmo::SMS::UnicodeMessage;
 
 use Nexmo::SMS::GetBalance;
 
@@ -116,6 +117,7 @@ sub sms {
     
     my %types = (
         text    => 'Nexmo::SMS::TextMessage',
+        unicode => 'Nexmo::SMS::UnicodeMessage',
         binary  => 'Nexmo::SMS::BinaryMessage',
         wappush => 'Nexmo::SMS::WAPPushMessage',
     );
