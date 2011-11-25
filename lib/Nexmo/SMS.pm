@@ -109,7 +109,8 @@ Send a binary message
         body     => '0011223344556677', # hex encoded body
         from     => 'Test02',
         to       => '452312432',
-    ) or die $nexmo->errstr;
+    ) or die $nexmo->errstr;
+
 =cut
 
 sub sms {
@@ -179,7 +180,7 @@ sub errstr {
 
 sub get_balance {
     my ($self,%param) = @_;
-    
+
     $param{server}   ||= $self->server;
     $param{username} ||= $self->username;
     $param{password} ||= $self->password;
@@ -230,9 +231,6 @@ Please report any bugs or feature requests to C<bug-nexmo-sms at rt.cpan.org>, o
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Nexmo-SMS>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
-
-
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -271,7 +269,6 @@ L<http://search.cpan.org/dist/Nexmo-SMS/>
 Copyright 2011 Renee Baecker.
 
 This program is released under the following license: artistic_2
-
 
 =cut
 
