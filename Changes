@@ -1,5 +1,9 @@
 Revision history for Nexmo-SMS
 
+0.04    Nov 25, 2011 - "Munich"
+        + add support for unicode messages (thanks Jui-Nan Lin)
+        + fix linefeeds
+
 0.03    Aug 28, 2011 - "Amsterdam"
         + add support for get_balance()
 
