@@ -265,6 +265,8 @@ L<http://search.cpan.org/dist/Nexmo-SMS/>
 
 =head1 ACKNOWLEDGEMENTS
 
+Jui-Nan Lin added support for Unicode messages, thanks!
+(see https://github.com/reneeb/perl-Nexmo-SMS/pull/1/files)
 
 =head1 COPYRIGHT & LICENSE
 
