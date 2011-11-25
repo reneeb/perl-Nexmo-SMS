@@ -16,11 +16,11 @@ Nexmo::SMS - Module for the Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 =head1 SYNOPSIS
@@ -81,6 +81,8 @@ sub new {
     my ($class,%param) = @_;
     
     my $self = bless {}, $class;
+
+    $param{server} ||= '';
     
     for my $attr ( @attrs ) {
         if ( exists $param{$attr} ) {
