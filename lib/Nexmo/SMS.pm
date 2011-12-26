@@ -9,17 +9,15 @@ use Nexmo::SMS::WAPPushMessage;
 
 use Nexmo::SMS::GetBalance;
 
-=head1 NAME
-
-Nexmo::SMS - Module for the Nexmo SMS API!
+# ABSTRACT: Module for the Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.04
+Version 0.06
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.06';
 
 
 =head1 SYNOPSIS
@@ -30,7 +28,7 @@ This module simplifies sending SMS through the Nexmo API.
     use Nexmo::SMS;
 
     my $nexmo = Nexmo::SMS->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
@@ -54,7 +52,7 @@ This module simplifies sending SMS through the Nexmo API.
 create a new object
 
     my $foo = Nexmo::SMS->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
@@ -81,7 +79,7 @@ sub new {
     
     my $self = bless {}, $class;
 
-    $param{server} ||= '';
+    $param{server} ||= 'http://rest.nexmo.com/sms/json';
     
     for my $attr ( @attrs ) {
         if ( exists $param{$attr} ) {
@@ -132,6 +130,8 @@ sub sms {
         
     my $type   = $requested_type || 'text';
     my $module = $types{$type};
+
+    $param{type} = $type if $type ne 'text';
     
     # check for needed params
     my $sub_name  = 'check_needed_params';

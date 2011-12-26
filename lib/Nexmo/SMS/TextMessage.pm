@@ -8,17 +8,15 @@ use Nexmo::SMS::Response;
 use LWP::UserAgent;
 use JSON::PP;
 
-=head1 NAME
-
-Nexmo::SMS::TextMessage - Module that respresents a text message for the Nexmo SMS API!
+# ABSTRACT: Module that respresents a text message for the Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my %attrs = (
     text              => 'required',
@@ -52,7 +50,7 @@ This module simplifies sending SMS through the Nexmo API.
     use Nexmo::SMS::TextMessage;
 
     my $nexmo = Nexmo::SMS::TextMessage->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
         text     => 'This is a test',
@@ -73,7 +71,7 @@ This module simplifies sending SMS through the Nexmo API.
 create a new object
 
     my $message = Nexmo::SMS::TextMessage->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
@@ -239,6 +237,8 @@ These attributes are available for C<Nexmo::SMS::TextMessage> objects:
 =item * text
 
 =item * to
+
+=item * type
 
 =item * username
 

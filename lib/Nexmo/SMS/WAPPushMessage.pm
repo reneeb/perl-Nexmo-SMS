@@ -8,17 +8,15 @@ use Nexmo::SMS::Response;
 use LWP::UserAgent;
 use JSON::PP;
 
-=head1 NAME
-
-Nexmo::SMS::WAPPushMessage - Module that respresents a WAPPush message for the Nexmo SMS API!
+# ABSTRACT: Module that respresents a WAPPush message for the Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my %attrs = (
     title             => 'required',
@@ -53,7 +51,7 @@ This module simplifies sending SMS through the Nexmo API.
     use Nexmo::SMS::WAPPushMessage;
 
     my $nexmo = Nexmo::SMS::WAPPushMessage->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
         text     => 'This is a test',
@@ -74,7 +72,7 @@ This module simplifies sending SMS through the Nexmo API.
 create a new object
 
     my $message = Nexmo::SMS::WAPPushMessage->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );

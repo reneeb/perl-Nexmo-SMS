@@ -1,8 +1,6 @@
 package Nexmo::SMS::MockLWP;
 
-=head1 NAME
-
-Nexmo::SMS - Module for the Nexmo SMS API!
+# ABSTRACT: Module for the Nexmo SMS API!
 
 =head1 VERSION
 

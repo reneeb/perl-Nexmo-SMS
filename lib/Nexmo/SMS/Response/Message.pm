@@ -3,17 +3,15 @@ package Nexmo::SMS::Response::Message;
 use strict;
 use warnings;
 
-=head1 NAME
-
-Nexmo::SMS::Message - Module that represents a single message in the response from Nexmo SMS API!
+# ABSTRACT: Module that represents a single message in the response from Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # create getter/setter
 my @attrs = qw(

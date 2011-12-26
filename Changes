@@ -1,5 +1,12 @@
 Revision history for Nexmo-SMS
 
+0.06    Dec 26, 2011 - "Belfast"
+        + changed handling of unicode messages
+        + replaced dummy server url with real server url
+
+0.05    Nov 30, 2011 - "Paris"
+        + forget to mention the "type" attribute in UnicodeMessage
+
 0.04    Nov 25, 2011 - "Munich"
         + add support for unicode messages (thanks Jui-Nan Lin)
         + fix linefeeds

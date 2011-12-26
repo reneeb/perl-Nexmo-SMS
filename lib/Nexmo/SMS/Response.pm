@@ -7,9 +7,7 @@ use Nexmo::SMS::Response::Message;
 
 use JSON::PP;
 
-=head1 NAME
-
-Nexmo::SMS::Response - Module that represents a response from Nexmo SMS API!
+# ABSTRACT: Module that represents a response from Nexmo SMS API!
 
 =head1 VERSION
 

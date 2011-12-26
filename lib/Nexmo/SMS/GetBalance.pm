@@ -6,17 +6,15 @@ use warnings;
 use LWP::UserAgent;
 use JSON::PP;
 
-=head1 NAME
-
-Nexmo::SMS::GetBalance - Module to ask for the balance for the Nexmo SMS API!
+# ABSTRACT: Module to ask for the balance for the Nexmo SMS API!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my %attrs = (
     server            => 'required',
@@ -43,7 +41,7 @@ This module simplifies sending SMS through the Nexmo API.
     use Nexmo::SMS::GetBalance;
 
     my $nexmo = Nexmo::SMS::GetBalance->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
@@ -57,7 +55,7 @@ This module simplifies sending SMS through the Nexmo API.
 create a new object
 
     my $object = Nexmo::SMS::GetBalance->new(
-        server   => 'http://test.nexmo.com/sms/json',
+        server   => 'http://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
