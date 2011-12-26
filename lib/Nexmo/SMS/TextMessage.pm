@@ -27,6 +27,7 @@ my %attrs = (
     server            => 'required',
     username          => 'required',
     password          => 'required',
+    type              => 'optional',
     status_report_req => 'optional',
     client_ref        => 'optional',
     network_code      => 'optional',
@@ -85,6 +86,7 @@ This method recognises these parameters:
     server            => 'required',
     username          => 'required',
     password          => 'required',
+    type              => 'optional',
     status_report_req => 'optional',
     client_ref        => 'optional',
     network_code      => 'optional',
@@ -161,6 +163,7 @@ sub send {
     $optional{'client-ref'}        = $self->client_ref        if $self->client_ref;
     $optional{'status-report-req'} = $self->status_report_req if $self->status_report_req;
     $optional{'network-code'}      = $self->network_code      if $self->network_code;
+    $optional{'type'}              = $self->type              if $self->type;
     
     my $response = $self->user_agent->post(
         $self->server,
