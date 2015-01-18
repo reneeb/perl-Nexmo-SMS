@@ -9,12 +9,6 @@ use JSON::PP;
 
 # ABSTRACT: Module that represents a response from Nexmo SMS API!
 
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
 our $VERSION = '0.01';
 
 # create getter/setter
@@ -190,14 +184,3 @@ These attributes are available for C<Nexmo::SMS::TextMessage> objects:
 
 =back
 
-=head1 ACKNOWLEDGEMENTS
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2011 Renee Baecker.
-
-This program is released under the following license: artistic_2
-
-
-=cut

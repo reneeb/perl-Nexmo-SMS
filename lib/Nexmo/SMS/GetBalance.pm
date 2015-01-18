@@ -8,12 +8,6 @@ use JSON::PP;
 
 # ABSTRACT: Module to ask for the balance for the Nexmo SMS API!
 
-=head1 VERSION
-
-Version 0.02
-
-=cut
-
 our $VERSION = '0.02';
 
 my %attrs = (
@@ -117,8 +111,6 @@ This actually calls the Nexmo SMS API. It returns the balance of the account.
 sub get_balance {
     my ($self) = shift;
     
-    use Data::Dumper;
-    
     my $url = sprintf "%saccount/get-balance/%s/%s",
         $self->server,
         $self->username,
@@ -165,14 +157,3 @@ attribute there is a getter/setter:
 
 1;
 
-=head1 ACKNOWLEDGEMENTS
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2011 Renee Baecker.
-
-This program is released under the following license: artistic_2
-
-
-=cut

@@ -10,12 +10,6 @@ use JSON::PP;
 
 # ABSTRACT: Module that respresents a binary message for the Nexmo SMS API!
 
-=head1 VERSION
-
-Version 0.02
-
-=cut
-
 our $VERSION = '0.02';
 
 my %attrs = (
@@ -253,14 +247,3 @@ These attributes are available for C<Nexmo::SMS::TextMessage> objects:
 
 1;
 
-=head1 ACKNOWLEDGEMENTS
-
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2011 Renee Baecker.
-
-This program is released under the following license: artistic_2
-
-
-=cut
