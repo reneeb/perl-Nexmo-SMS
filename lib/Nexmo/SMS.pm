@@ -11,7 +11,7 @@ use Nexmo::SMS::GetBalance;
 
 # ABSTRACT: Module for the Nexmo SMS API!
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 
 =head1 SYNOPSIS
@@ -22,7 +22,7 @@ This module simplifies sending SMS through the Nexmo API.
     use Nexmo::SMS;
 
     my $nexmo = Nexmo::SMS->new(
-        server   => 'http://rest.nexmo.com/sms/json',
+        server   => 'https://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
@@ -46,7 +46,7 @@ This module simplifies sending SMS through the Nexmo API.
 create a new object
 
     my $foo = Nexmo::SMS->new(
-        server   => 'http://rest.nexmo.com/sms/json',
+        server   => 'https://rest.nexmo.com/sms/json',
         username => 'testuser1',
         password => 'testpasswd2',
     );
@@ -73,7 +73,7 @@ sub new {
     
     my $self = bless {}, $class;
 
-    $param{server} ||= 'http://rest.nexmo.com/sms/json';
+    $param{server} ||= 'https://rest.nexmo.com/sms/json';
     
     for my $attr ( @attrs ) {
         if ( exists $param{$attr} ) {
