@@ -11,7 +11,7 @@ use Nexmo::SMS::GetBalance;
 
 # ABSTRACT: Module for the Nexmo SMS API!
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 
 =head1 SYNOPSIS
