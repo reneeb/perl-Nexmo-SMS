@@ -1,0 +1,158 @@
+[![Build Status](https://travis-ci.org/reneeb/perl-Nexmo-SMS.svg?branch=master)](https://travis-ci.org/reneeb/perl-Nexmo-SMS)
+[![Kwalitee status](http://cpants.cpanauthors.org/dist/Nexmo-SMS.png)](http://cpants.charsbar.org/dist/overview/Nexmo-SMS)
+[![GitHub issues](https://img.shields.io/github/issues/reneeb/perl-Nexmo-SMS.svg)](https://github.com/reneeb/perl-Nexmo-SMS/issues)
+
+# NAME
+
+Nexmo::SMS - Module for the Nexmo SMS API!
+
+# VERSION
+
+version 0.09
+
+# SYNOPSIS
+
+This module simplifies sending SMS through the Nexmo API.
+
+    use Nexmo::SMS;
+
+    my $nexmo = Nexmo::SMS->new(
+        server   => 'https://rest.nexmo.com/sms/json',
+        username => 'testuser1',
+        password => 'testpasswd2',
+    );
+    
+    my $sms = $nexmo->sms(
+        text     => 'This is a test',
+        from     => 'Test02',
+        to       => '452312432',
+    ) or die $nexmo->errstr;
+    
+    my $response = $sms->send || die $sms->errstr;
+    
+    if ( $response->is_success ) {
+        print "SMS was sent...\n";
+    }
+
+# METHODS
+
+## new
+
+create a new object
+
+    my $foo = Nexmo::SMS->new(
+        server   => 'https://rest.nexmo.com/sms/json',
+        username => 'testuser1',
+        password => 'testpasswd2',
+    );
+
+Those parameters are optional and they are used as defaults for the message objects
+
+## sms
+
+Create a new message object or returns `undef`.
+
+    my $sms = $nexmo->sms(
+        text     => 'This is a test',
+        from     => 'Test02',
+        to       => '452312432',
+    ) or die $nexmo->errstr;
+
+Send a binary message
+
+    my $binary = $nexmo->sms(
+        type     => 'binary',
+        udh      => '06050415811581',   # hex encoded udh
+        body     => '0011223344556677', # hex encoded body
+        from     => 'Test02',
+        to       => '452312432',
+    ) or die $nexmo->errstr;
+
+## errstr
+
+return the "last" error as string.
+
+    print $nexmo->errstr;
+
+## get\_balance
+
+    my $balance = $nexmo->get_balance;
+
+## get\_pricing
+
+Not implemented yet...
+
+# Attributes
+
+These attributes are available for `Nexmo::SMS::TextMessage` objects. For each
+attribute there is a getter/setter:
+
+    $nexmo->server( 'servername' );
+    my $server = $nexmo->server;
+
+- password
+- server
+- username
+
+# ACKNOWLEDGEMENTS
+
+Jui-Nan Lin added support for Unicode messages, thanks!
+(see https://github.com/reneeb/perl-Nexmo-SMS/pull/1/files)
+
+
+
+## Development
+
+The distribution is contained in a Git repository, so simply clone the
+repository
+
+```
+$ git clone http://github.com/reneeb/perl-Nexmo-SMS.git
+```
+
+and change into the newly-created directory.
+
+```
+$ cd Nexmo-SMS
+```
+
+The project uses [`Dist::Zilla`](https://metacpan.org/pod/Dist::Zilla) to
+build the distribution, hence this will need to be installed before
+continuing:
+
+```
+$ cpanm Dist::Zilla
+```
+
+To install the required prequisite packages, run the following set of
+commands:
+
+```
+$ dzil authordeps --missing | cpanm
+$ dzil listdeps --author --missing | cpanm
+```
+
+The distribution can be tested like so:
+
+```
+$ dzil test
+```
+
+To run the full set of tests (including author and release-process tests),
+add the `--author` and `--release` options:
+
+```
+$ dzil test --author --release
+```
+
+# AUTHOR
+
+Renee Baecker &lt;reneeb@cpan.org>
+
+# COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2016 by Renee Baecker.
+
+This is free software, licensed under:
+
+    The Artistic License 2.0 (GPL Compatible)
