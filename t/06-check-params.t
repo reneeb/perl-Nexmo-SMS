@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 use Nexmo::SMS::MockLWP;
 use Nexmo::SMS;
@@ -15,6 +15,15 @@ my $nexmo = Nexmo::SMS->new(
 );
 
 ok( $nexmo->isa( 'Nexmo::SMS' ), '$nexmo is a Nexmo::SMS' );
+
+my $error_type_check = '';
+my $type_check = $nexmo->sms(
+    type  => 'xxxxxx',
+    from  => 'Test05',
+    to    => '452312432',
+) or $error_type_check = $nexmo->errstr;
+
+ok $error_type_check =~ /Type xxxxxx not supported/, 'Check sms type';
 
 my $error_wap = '';
 my $wap = $nexmo->sms(
